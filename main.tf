@@ -25,6 +25,18 @@ resource "aws_security_group" "unbound_sg1" {
   }
 }
 
+### PREPARE BOOTSTRAP ###
+data "template_file" "init" {
+  template = "${file("${path.module}/install_unbound.sh")}"
+
+  vars {
+    consul_address = "${aws_instance.consul.private_ip}"
+    vpc_dns =
+    onprem_domain =
+    onprem_dns  =
+  }
+}
+
 ### CREATE UNBOUND SERVER ###
 resource "aws_instance" "example" {
   ami           = "${lookup(var.amis, var.region)}"
