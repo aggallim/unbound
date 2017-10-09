@@ -1,6 +1,6 @@
 #!/bin/bash
 # Set the variables for your environment
-vpc_dns=${vpc_dns_address}
+vpc_dns_address=${vpc_dns_address}
 onprem_domain=${onprem_domain}
 onprem_dns=${onprem_dns}
 
@@ -22,7 +22,7 @@ server:
         access-control: 0.0.0.0/0 allow
 forward-zone:
         name: "."
-        forward-addr: ${vpc_dns}
+        forward-addr: ${vpc_dns_address}
 forward-zone:
         name: "${onprem_domain}"
         forward-addr: ${onprem_dns}

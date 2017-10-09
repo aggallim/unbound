@@ -14,6 +14,10 @@ data "aws_ami" "amzn-ami" {
     name   = "name"
     values = ["amzn-ami*"]
   }
+  filter {
+    name  = "virtualization-type"
+    values  = ["hvm"]
+  }
 }
 
 ### CREATE SECURITY GROUPS ###
@@ -43,7 +47,7 @@ data "template_file" "init" {
   template = "${file("${path.module}/install_unbound.sh")}"
 
   vars {
-    vpc_dns = "${var.vpc_dns}"
+    vpc_dns_address = "${var.vpc_dns_address}"
     onprem_domain = "${var.onprem_domain}"
     onprem_dns  = "${var.onprem_dns}"
   }
